@@ -53,12 +53,23 @@ function Questions() {
     return array;
   }
 
+  function updateAnswer(currentQuestion, answer) {
+    setQuestionsAndAnswers(
+      questionsAndAnswers.map((questionObject) => {
+        return questionObject.question === currentQuestion
+          ? { ...questionObject, selectedAnswer: answer }
+          : questionObject;
+      })
+    );
+  }
+
   const questionsElements = questionsAndAnswers.map((questionObject, index) => {
     return (
       <SingleQuestion
         key={index}
         question={questionObject.question}
         allAnswers={questionObject.shuffledAnswers}
+        updateAnswer={updateAnswer}
       />
     );
   });

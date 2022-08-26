@@ -1,9 +1,17 @@
 import { decode } from "html-entities";
 
 function SingleQuestion(props) {
+  function clickAnswer(answer, currentQuestion) {
+    props.updateAnswer(currentQuestion, answer);
+  }
+
   const answersElements = props.allAnswers.map((answer, index) => {
     return (
-      <button key={index} className="answer-btn">
+      <button
+        key={index}
+        onClick={() => clickAnswer(answer, props.question)}
+        className="answer-btn"
+      >
         {decode(answer)}
       </button>
     );
