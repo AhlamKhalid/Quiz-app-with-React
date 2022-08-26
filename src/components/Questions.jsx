@@ -2,21 +2,33 @@ import React from "react";
 
 function Questions() {
   const [questions, setQuestions] = React.useState([]);
+  const [questionsAndAnswers, setQuestionsAndAnswers] = React.useState([]);
 
   React.useEffect(() => {
     fetch("https://opentdb.com/api.php?amount=5")
       .then((response) => response.json())
       .then((data) => {
         setQuestions(data.results);
-        const firstQuestion = data.results[0];
-        console.log(firstQuestion);
-        const allAnswers = [
-          ...firstQuestion.incorrect_answers,
-          firstQuestion.correct_answer
-        ];
-        console.log(allAnswers);
-        const shuffledAnswers = shuffle(allAnswers);
-        console.log(shuffledAnswers);
+        // each item will be an object of:
+        /*
+            -question
+            -shuffled answers
+            -correct answer
+            -selected answer
+        */
+        setQuestionsAndAnswers(
+          data.results.map((questionObject) => {
+            return {
+              question: questionObject.question,
+              shuffledAnswers: shuffle([
+                ...questionObject.incorrect_answers,
+                questionObject.correct_answer
+              ]),
+              correctAnswer: questionObject.correct_answer,
+              selectedAnswer: ""
+            };
+          })
+        );
       });
   }, []);
 
