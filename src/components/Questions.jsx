@@ -53,11 +53,19 @@ function Questions() {
     return array;
   }
 
+  const questionsElements = questionsAndAnswers.map((questionObject, index) => {
+    return (
+      <SingleQuestion
+        key={index}
+        question={questionObject.question}
+        allAnswers={questionObject.shuffledAnswers}
+      />
+    );
+  });
+
   return (
     <div>
-      <div className="questions-container">
-        <SingleQuestion />
-      </div>
+      <div className="questions-container">{questionsElements}</div>
     </div>
   );
 }
