@@ -1,5 +1,7 @@
 import React from "react";
 
+import SingleQuestion from "./SingleQuestion";
+
 function Questions() {
   const [questions, setQuestions] = React.useState([]);
   const [questionsAndAnswers, setQuestionsAndAnswers] = React.useState([]);
@@ -53,7 +55,9 @@ function Questions() {
 
   return (
     <div>
-      <h1>this is questions page</h1>
+      <div className="questions-container">
+        <SingleQuestion />
+      </div>
     </div>
   );
 }
