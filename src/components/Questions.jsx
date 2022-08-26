@@ -69,6 +69,7 @@ function Questions() {
         key={index}
         question={questionObject.question}
         allAnswers={questionObject.shuffledAnswers}
+        selectedAnswer={questionObject.selectedAnswer}
         updateAnswer={updateAnswer}
       />
     );

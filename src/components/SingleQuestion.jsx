@@ -10,7 +10,9 @@ function SingleQuestion(props) {
       <button
         key={index}
         onClick={() => clickAnswer(answer, props.question)}
-        className="answer-btn"
+        className={`answer-btn ${
+          answer === props.selectedAnswer ? "selected" : ""
+        }`}
       >
         {decode(answer)}
       </button>
