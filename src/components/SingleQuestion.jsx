@@ -7,8 +7,12 @@ function SingleQuestion() {
         Which CS:GO eSports team won the major event ESL One Cologne 2016?
       </h1>
       <div className="answers-btn-container">
-        {allAnswers.map((answer) => {
-          return <button className="answer-btn">{answer}</button>;
+        {allAnswers.map((answer, index) => {
+          return (
+            <button className="answer-btn" key={index}>
+              {answer}
+            </button>
+          );
         })}
       </div>
     </div>
