@@ -115,3 +115,23 @@ button:focus {
   background-color: #d6dbf5;
   border-color: #d6dbf5;
 }
+
+.check-btn,
+.play-again-btn {
+  background-color: #4d5b9e;
+  border-radius: 10px;
+  padding: 14px 25px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #f5f7fb;
+}
+
+.warning-message {
+  font-family: "Karla", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: #ff5858;
+  margin-bottom: 16px;
+}

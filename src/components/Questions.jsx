@@ -5,6 +5,7 @@ import SingleQuestion from "./SingleQuestion";
 function Questions() {
   const [questions, setQuestions] = React.useState([]);
   const [questionsAndAnswers, setQuestionsAndAnswers] = React.useState([]);
+  const [showWarning, setShowWarning] = React.useState(false);
 
   React.useEffect(() => {
     fetch("https://opentdb.com/api.php?amount=5")
@@ -63,6 +64,14 @@ function Questions() {
     );
   }
 
+  function checkAnswers() {
+    const notAllAnswered = questionsAndAnswers.some(
+      (questionObject) => questionObject.selectedAnswer === ""
+    );
+
+    setShowWarning(notAllAnswered);
+  }
+
   const questionsElements = questionsAndAnswers.map((questionObject, index) => {
     return (
       <SingleQuestion
@@ -78,6 +87,20 @@ function Questions() {
   return (
     <div>
       <div className="questions-container">{questionsElements}</div>
+
+      <div className="text-center">
+        {showWarning && (
+          <p className="warning-message">
+            There are questions not answered yet^
+          </p>
+        )}
+
+        {questions.length > 0 ? (
+          <button className="check-btn" onClick={checkAnswers}>
+            Check answers
+          </button>
+        ) : null}
+      </div>
     </div>
   );
 }
