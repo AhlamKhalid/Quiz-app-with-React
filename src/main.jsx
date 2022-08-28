@@ -3,8 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+// strict mode doc:
+// https://stackoverflow.com/a/61897567
+// https://reactjs.org/docs/strict-mode.html#detecting-unexpected-side-effects
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
