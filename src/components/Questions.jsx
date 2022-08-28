@@ -6,6 +6,8 @@ function Questions() {
   const [questions, setQuestions] = React.useState([]);
   const [questionsAndAnswers, setQuestionsAndAnswers] = React.useState([]);
   const [showWarning, setShowWarning] = React.useState(false);
+  const [numCorrectAnswers, setNumCorrectAnswers] = React.useState(0);
+  const [showResult, setShowResult] = React.useState(false);
 
   React.useEffect(() => {
     fetch("https://opentdb.com/api.php?amount=5")
@@ -70,6 +72,19 @@ function Questions() {
     );
 
     setShowWarning(notAllAnswered);
+
+    // all questions have been answered
+    if (!notAllAnswered) {
+      questionsAndAnswers.forEach((questionObject) => {
+        if (questionObject.selectedAnswer === questionObject.correctAnswer) {
+          setNumCorrectAnswers(
+            (prevNumCorrectAnswers) => prevNumCorrectAnswers + 1
+          );
+        }
+      });
+
+      setShowResult(true);
+    }
   }
 
   const questionsElements = questionsAndAnswers.map((questionObject, index) => {
@@ -95,12 +110,21 @@ function Questions() {
           </p>
         )}
 
-        {questions.length > 0 ? (
+        {questions.length > 0 && !showResult ? (
           <button className="check-btn" onClick={checkAnswers}>
             Check answers
           </button>
         ) : null}
       </div>
+
+      {showResult && (
+        <div className="result-container">
+          <p className="result-message">
+            You scored {numCorrectAnswers}/5 correct answers
+          </p>
+          <button className="play-again-btn">Play again</button>
+        </div>
+      )}
     </div>
   );
 }

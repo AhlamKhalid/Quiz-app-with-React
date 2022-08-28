@@ -135,3 +135,16 @@ button:focus {
   color: #ff5858;
   margin-bottom: 16px;
 }
+
+.result-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.result-message {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  color: #293264;
+}
