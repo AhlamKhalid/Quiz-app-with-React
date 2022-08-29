@@ -12,7 +12,18 @@ function SingleQuestion(props) {
         onClick={() => clickAnswer(answer, props.question)}
         className={`answer-btn ${
           answer === props.selectedAnswer ? "selected" : ""
-        }`}
+        }
+        ${props.showResult && answer === props.correctAnswer ? "correct" : ""}
+        ${
+          props.showResult &&
+          answer === props.selectedAnswer &&
+          answer !== props.correctAnswer
+            ? "incorrect"
+            : ""
+        }
+        ${props.showResult && answer !== props.correctAnswer ? "dimmed" : ""}
+        `}
+        disabled={props.showResult}
       >
         {decode(answer)}
       </button>

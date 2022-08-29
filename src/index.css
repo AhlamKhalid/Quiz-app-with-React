@@ -116,6 +116,20 @@ button:focus {
   border-color: #d6dbf5;
 }
 
+.answer-btn.correct {
+  background-color: #94d7a2;
+  border-color: #94d7a2;
+}
+
+.answer-btn.incorrect {
+  background-color: #f8bcbc;
+  border-color: #f8bcbc;
+}
+
+.answer-btn.dimmed {
+  opacity: 0.5;
+}
+
 .check-btn,
 .play-again-btn {
   background-color: #4d5b9e;

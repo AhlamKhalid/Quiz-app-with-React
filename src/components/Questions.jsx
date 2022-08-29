@@ -94,6 +94,8 @@ function Questions() {
         question={questionObject.question}
         allAnswers={questionObject.shuffledAnswers}
         selectedAnswer={questionObject.selectedAnswer}
+        correctAnswer={questionObject.correctAnswer}
+        showResult={showResult}
         updateAnswer={updateAnswer}
       />
     );
