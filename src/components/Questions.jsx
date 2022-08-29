@@ -10,32 +10,34 @@ function Questions() {
   const [showResult, setShowResult] = React.useState(false);
 
   React.useEffect(() => {
-    fetch("https://opentdb.com/api.php?amount=5")
-      .then((response) => response.json())
-      .then((data) => {
-        setQuestions(data.results);
-        // each item will be an object of:
-        /*
+    if (questions.length === 0) {
+      fetch("https://opentdb.com/api.php?amount=5")
+        .then((response) => response.json())
+        .then((data) => {
+          setQuestions(data.results);
+          // each item will be an object of:
+          /*
             -question
             -shuffled answers
             -correct answer
             -selected answer
         */
-        setQuestionsAndAnswers(
-          data.results.map((questionObject) => {
-            return {
-              question: questionObject.question,
-              shuffledAnswers: shuffle([
-                ...questionObject.incorrect_answers,
-                questionObject.correct_answer
-              ]),
-              correctAnswer: questionObject.correct_answer,
-              selectedAnswer: ""
-            };
-          })
-        );
-      });
-  }, []);
+          setQuestionsAndAnswers(
+            data.results.map((questionObject) => {
+              return {
+                question: questionObject.question,
+                shuffledAnswers: shuffle([
+                  ...questionObject.incorrect_answers,
+                  questionObject.correct_answer
+                ]),
+                correctAnswer: questionObject.correct_answer,
+                selectedAnswer: ""
+              };
+            })
+          );
+        });
+    }
+  }, [questions]);
 
   // function to shuffle answers
   // https://stackoverflow.com/a/2450976
@@ -87,6 +89,13 @@ function Questions() {
     }
   }
 
+  function playAgain() {
+    setQuestions([]);
+    setQuestionsAndAnswers([]);
+    setShowResult(false);
+    setNumCorrectAnswers(0);
+  }
+
   const questionsElements = questionsAndAnswers.map((questionObject, index) => {
     return (
       <SingleQuestion
@@ -124,7 +133,9 @@ function Questions() {
           <p className="result-message">
             You scored {numCorrectAnswers}/5 correct answers
           </p>
-          <button className="play-again-btn">Play again</button>
+          <button className="play-again-btn" onClick={playAgain}>
+            Play again
+          </button>
         </div>
       )}
     </div>
