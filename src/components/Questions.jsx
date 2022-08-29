@@ -1,27 +1,34 @@
 import React from "react";
 
+// components
 import SingleQuestion from "./SingleQuestion";
 
 function Questions() {
+  // questions returned from Trivia API
   const [questions, setQuestions] = React.useState([]);
+  // mapping each question & its answers
   const [questionsAndAnswers, setQuestionsAndAnswers] = React.useState([]);
+  // show warning if not all questions are answered
   const [showWarning, setShowWarning] = React.useState(false);
+  // number of correct answers
   const [numCorrectAnswers, setNumCorrectAnswers] = React.useState(0);
+  // show result
   const [showResult, setShowResult] = React.useState(false);
 
   React.useEffect(() => {
+    // questions.length = 0 means first render & new game
     if (questions.length === 0) {
       fetch("https://opentdb.com/api.php?amount=5")
         .then((response) => response.json())
         .then((data) => {
           setQuestions(data.results);
-          // each item will be an object of:
+          // each item in questionsAndAnswers will be an object of:
           /*
             -question
             -shuffled answers
             -correct answer
             -selected answer
-        */
+          */
           setQuestionsAndAnswers(
             data.results.map((questionObject) => {
               return {
@@ -58,9 +65,11 @@ function Questions() {
     return array;
   }
 
+  // choosing an answer
   function updateAnswer(currentQuestion, answer) {
     setQuestionsAndAnswers(
       questionsAndAnswers.map((questionObject) => {
+        // if it is the question being answered, update its selected answer
         return questionObject.question === currentQuestion
           ? { ...questionObject, selectedAnswer: answer }
           : questionObject;
@@ -68,16 +77,21 @@ function Questions() {
     );
   }
 
+  // clicking "check answers"
   function checkAnswers() {
+    // find if some questions are not answered //
+
+    // case 1: missing answers
     const notAllAnswered = questionsAndAnswers.some(
       (questionObject) => questionObject.selectedAnswer === ""
     );
 
     setShowWarning(notAllAnswered);
 
-    // all questions have been answered
+    // case 2: all questions have been answered
     if (!notAllAnswered) {
       questionsAndAnswers.forEach((questionObject) => {
+        // compare selected answer & correct answer
         if (questionObject.selectedAnswer === questionObject.correctAnswer) {
           setNumCorrectAnswers(
             (prevNumCorrectAnswers) => prevNumCorrectAnswers + 1
@@ -85,17 +99,21 @@ function Questions() {
         }
       });
 
+      // show result
       setShowResult(true);
     }
   }
 
+  // play again
   function playAgain() {
+    // reset state
     setQuestions([]);
     setQuestionsAndAnswers([]);
     setShowResult(false);
     setNumCorrectAnswers(0);
   }
 
+  // questions elements
   const questionsElements = questionsAndAnswers.map((questionObject, index) => {
     return (
       <SingleQuestion
@@ -121,6 +139,7 @@ function Questions() {
           </p>
         )}
 
+        {/* questions.length > 0 means showing the button when the data is available */}
         {questions.length > 0 && !showResult ? (
           <button className="check-btn" onClick={checkAnswers}>
             Check answers

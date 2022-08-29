@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+// root component
 import App from "./App";
+// style file
 import "./index.css";
 
 // strict mode doc:

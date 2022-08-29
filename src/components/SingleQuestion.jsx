@@ -1,12 +1,19 @@
+// to decode html entities
 import { decode } from "html-entities";
 
 function SingleQuestion(props) {
+  // clicking an answer
   function clickAnswer(answer, currentQuestion) {
+    // call updateAnswer prop
     props.updateAnswer(currentQuestion, answer);
   }
 
+  // answers elements
   const answersElements = props.allAnswers.map((answer, index) => {
     return (
+      // correct class: when answer = correct answer
+      // incorrect class: when answer = user selected answer & it's incorrect answer
+      // dimmed class: all answers except correct answer
       <button
         key={index}
         onClick={() => clickAnswer(answer, props.question)}
